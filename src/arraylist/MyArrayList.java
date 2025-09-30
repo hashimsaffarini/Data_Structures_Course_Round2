@@ -135,6 +135,17 @@ public class MyArrayList<T> {
         arr = (T[]) new Object[5];
     }
 
+    MyArrayList<T> subList(int fromIndex, int toIndex) {
+        if (fromIndex < 0 || toIndex > size || fromIndex > toIndex) {
+            throw new IndexOutOfBoundsException();
+        }
+        MyArrayList<T> sub = new MyArrayList<>(toIndex - fromIndex);
+        for (int i = fromIndex; i < toIndex; i++) {
+            sub.add(arr[i]);
+        }
+        return sub;
+    }
+
 
     @Override
     public String toString() {

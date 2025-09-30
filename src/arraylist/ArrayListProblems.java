@@ -1,5 +1,6 @@
 package arraylist;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -30,9 +31,79 @@ public class ArrayListProblems {
         }
     }
 
+    static ArrayList<Integer> removeAllDuplicates(ArrayList<Integer> list) {
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int val : list) {
+            if (!res.contains(val)) {
+                res.add(val);
+            }
+        }
+        return res;
+    }
+
+    static void removeAllDuplicates2(ArrayList<Integer> list) {
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                if (list.get(i) == list.get(j)) {
+                    list.remove(j);
+                    j--;
+                }
+            }
+        }
+    }
+
+    static void removeAllDuplicates3(ArrayList<Integer> list) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.indexOf(list.get(i)) != i) {
+                list.remove(i);
+                i--;
+            }
+        }
+    }
+
+    static ArrayList<Integer> intersectionBetweenTwoList(ArrayList<Integer> a, ArrayList<Integer> b) {
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int i = 0; i < a.size(); i++) {
+            if (b.contains(a.get(i)) && !res.contains(a.get(i))) {
+                res.add(a.get(i));
+            }
+        }
+        return res;
+    }
+
+    static void sortListEvenThenOdd(ArrayList<Integer> list) {
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (!isPrime(list.get(i))) {
+                list.add(list.remove(i));
+            }
+        }
+    }
+
+    static boolean isPrime(int x) {
+        if (x <= 1) {
+            return false;
+        }
+        for (int i = 2; i < x; i++) {
+            if (x % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static boolean isPalindrome(ArrayList<Integer> list) {
+        for (int i = 0; i < list.size() / 2; i++) {
+            if (list.get(i) != list.get(list.size() - 1 - i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
-        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(10, 10, 10, 20, 10, 30, 70));
-        removeAllElements2(list, 10);
+        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(2, 1, 4, 2, 5, 7, 8, 9));
+        // 10,20,30,70
+        sortListEvenThenOdd(list);
         System.out.println(list);
     }
 }
