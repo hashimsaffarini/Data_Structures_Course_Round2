@@ -3,6 +3,7 @@ package arraylist;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ArrayListProblems {
 
@@ -100,10 +101,77 @@ public class ArrayListProblems {
         return true;
     }
 
+    static void reverse(ArrayList<Integer> list) {
+        int l = list.size() - 1;
+        for (int i = 0; i < list.size() / 2; i++, l--) {
+            int temp = list.get(i);
+            list.set(i, list.get(l));
+            list.set(l, temp);
+        }
+    }
+
+    static void hlazone(ArrayList<Integer> list) {
+        int l = list.size() - 1;
+        for (int i = 0; i < list.size() / 2; i++, l--) {
+            System.out.println(list.get(i));
+            System.out.println(list.get(l));
+        }
+
+        if (list.size() % 2 == 1) {
+            System.out.println(list.get(list.size() / 2));
+        }
+    }
+
+    static void convertToCapital(ArrayList<String> list) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).charAt(list.get(i).length() - 1) == 's') {
+                list.set(i, list.get(i).toUpperCase());
+            }
+        }
+    }
+
+    static void removeSubList(ArrayList<Integer> list, int start, int end) {
+        for (int i = end; i >= start; i--) {
+            list.remove(i);
+        }
+    }
+
+    static void removeNElements(ArrayList<Integer> list, int start, int numberOfElement) {
+        for (int i = 0; i < numberOfElement; i++) {
+            list.remove(start);
+        }
+    }
+
+    static void printArrays(ArrayList<int[]> list) {
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < list.get(i)[1]; j++) {
+                System.out.print(list.get(i)[0]);
+            }
+
+        }
+
+
+    }
+
+    static List<List<Integer>> generatePascalTriangle(int numRows) {
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> a = new ArrayList<>();
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
+                    a.add(1);
+                } else {
+                    a.add(res.get(i - 1).get(j - 1) + res.get(i - 1).get(j));
+                }
+            }
+            res.add(a);
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
-        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(2, 1, 4, 2, 5, 7, 8, 9));
-        // 10,20,30,70
-        sortListEvenThenOdd(list);
-        System.out.println(list);
+        System.out.println(generatePascalTriangle(5));
+
+
     }
 }
