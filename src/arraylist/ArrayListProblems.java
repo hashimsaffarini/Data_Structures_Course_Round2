@@ -169,9 +169,45 @@ public class ArrayListProblems {
         return res;
     }
 
+    static ArrayList<ArrayList<Integer>> divideList(ArrayList<Integer> a, int k) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        int c = 0;
+        for (int i = 0; i < k; i++) {
+            ArrayList<Integer> b = new ArrayList<>();
+            for (int j = 0; j < a.size() / k; j++) {
+                b.add(a.get(c++));
+            }
+            res.add(b);
+        }
+        return res;
+    }
+
+    static Character maxCharacter(String s) {
+        int freq[] = new int[26];
+        for (char ch : s.toCharArray()) {
+            freq[ch - 'a']++;
+        }
+        int max = 0, index = 0;
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] > max) {
+                max = freq[i];
+                index = i;
+            }
+        }
+        return (char) (index + 'a');
+    }
+
+    static ArrayList<Character> getMaxFreq(ArrayList<String> list) {
+        ArrayList<Character> res = new ArrayList<>();
+
+        for (String val : list) {
+            res.add(maxCharacter(val));
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         System.out.println(generatePascalTriangle(5));
-
 
     }
 }
