@@ -1,5 +1,7 @@
 package linkedlist;
 
+import java.util.ArrayList;
+
 public class LinkedListProblems {
 
     static int sumo(Node head) {
@@ -43,10 +45,84 @@ public class LinkedListProblems {
         return slow.val;
     }
 
+    static Node removeDuplicates(Node head) {
+        ArrayList<Integer> list = new ArrayList<>();
+        for (Node curr = head; curr != null; curr = curr.next) {
+            if (!list.contains(curr.val)) {
+                list.add(curr.val);
+            }
+        }
+        Node dummy = new Node(0);
+        Node tail = dummy;
+        for (int val : list) {
+            tail.next = new Node(val);
+            tail = tail.next;
+        }
+        return dummy.next;
+    }
+
+    static Node rotateFromLeftToRight(Node head) {
+        if (head == null) {
+            return head;
+        }
+        Node curr = head;
+        while (curr.next != null) {
+            curr = curr.next;
+        }
+        curr.next = head;
+        head = head.next;
+        curr.next.next = null;
+        return head;
+    }
+
+    static Node rotateFromRightToLeft(Node head) {
+        if (head == null) return head;
+        Node curr = head;
+        while (curr.next.next != null) {
+            curr = curr.next;
+        }
+        curr.next.next = head;
+        head = curr.next;
+        curr.next = null;
+        return head;
+    }
+
+    static Node reverse(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node pre = null, curr = head, next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = next;
+        }
+        return pre;
+    }
+
+    static Node removeFromNToM(Node head, int n, int m) {
+        if (head == null) return head;
+        Node curr = head, curr1 = null, curr2 = null;
+        for (int i = 0; curr != null; i++) {
+            if (i == n - 1) {
+                curr1 = curr;
+            }
+            if (i == m) {
+                curr2 = curr;
+            }
+            curr = curr.next;
+        }
+        if (curr1 != null && curr2!=null) {
+            curr1.next = curr2.next;
+        }
+        return head;
+    }
 
     public static void main(String[] args) {
         MyLinkedList list = new MyLinkedList();
-        list.add(10, 20, 30, 40, 50, 60);
-        System.out.println(middleOfLinkedList(list.head));
+        list.add(1, 2, 3, 4, 5);
+        list.head = rotateFromRightToLeft(list.head);
+        System.out.println(list);
     }
 }

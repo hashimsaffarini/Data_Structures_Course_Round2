@@ -145,7 +145,7 @@ public class MyLinkedList {
         Node curr = head;
         while (curr != null) {
             s += curr.val;
-            if (curr != tail) {
+            if (curr.next != null) {
                 s += ", ";
             }
             curr = curr.next;
