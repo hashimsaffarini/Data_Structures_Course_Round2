@@ -1,5 +1,7 @@
 package linkedlist;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.ArrayList;
 
 public class LinkedListProblems {
@@ -36,13 +38,13 @@ public class LinkedListProblems {
         return f1 || f2;
     }
 
-    static int middleOfLinkedList(Node head) {
+    static Node middleOfLinkedList(Node head) {
         Node slow = head, fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
-        return slow.val;
+        return slow;
     }
 
     static Node removeDuplicates(Node head) {
@@ -113,16 +115,101 @@ public class LinkedListProblems {
             }
             curr = curr.next;
         }
-        if (curr1 != null && curr2!=null) {
+        if (curr1 != null && curr2 != null) {
             curr1.next = curr2.next;
         }
         return head;
     }
 
+    public static boolean isSame(Node a, Node b) {
+        Node headA = a, headB = b;
+
+        while (headA != null && headB != null) {
+            if (headA.val != headB.val) return false;
+            headA = headA.next;
+            headB = headB.next;
+        }
+        return headA == null && headB == null;
+    }
+
+    static Node findIntersection(Node head1, Node head2) {
+        Node dummy = new Node(0);
+        Node tail = dummy;
+        for (Node curr1 = head1; curr1 != null; curr1 = curr1.next) {
+            for (Node curr2 = head2; curr2 != null; curr2 = curr2.next) {
+                if (curr1.val == curr2.val && !exisit(dummy.next, curr1.val)) {
+                    tail.next = new Node(curr1.val);
+                    tail = tail.next;
+                    break;
+                }
+            }
+        }
+        return dummy.next;
+    }
+
+    static boolean exisit(Node head, int val) {
+        while (head != null) {
+            if (head.val == val) return true;
+            head = head.next;
+        }
+        return false;
+    }
+
+
+    static boolean isPalindrome(Node head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        Node mid = middleOfLinkedList(head);
+        Node secondHalf = reverse(mid);
+        Node firstHalf = head;
+        while (secondHalf != null) {
+            if (firstHalf.val != secondHalf.val) {
+                return false;
+            }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+        return true;
+    }
+
+    static Node removeDuplicatesWithoutDS(Node head) {
+        for (Node i = head; i != null; i = i.next) {
+            for (Node j = i; j.next != null; ) {
+                if (i.val == j.next.val) {
+                    j.next = j.next.next;
+                } else {
+                    j = j.next;
+                }
+            }
+        }
+        return head;
+    }
+
+    static Node insertSort(Node head, int val) {
+        Node cur = head;
+        Node newNode = new Node(val);
+        if (head == null || head.val >= newNode.val) {
+            newNode.next = head;
+            head = newNode;
+            return head;
+        }
+        while (cur.next != null) {
+            if (cur.next.val > newNode.val) {
+                break;
+            }
+            cur = cur.next;
+        }
+        newNode.next = cur.next;
+        cur.next = newNode;
+        return head;
+    }
+
+
     public static void main(String[] args) {
         MyLinkedList list = new MyLinkedList();
-        list.add(1, 2, 3, 4, 5);
-        list.head = rotateFromRightToLeft(list.head);
+        list.add(1, 2, 3,4);
+        reverse(list.head);
         System.out.println(list);
     }
 }
