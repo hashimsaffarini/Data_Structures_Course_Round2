@@ -4,7 +4,7 @@ public class MyLinkedList {
     Node head, tail;
     private int size;
 
-    MyLinkedList() {
+    public MyLinkedList() {
         head = tail = null;
         size = 0;
     }
