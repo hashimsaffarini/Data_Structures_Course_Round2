@@ -106,10 +106,11 @@ public class PracticalExam {
         }
     }
 
-
     public static void main(String[] args) {
-        LinkedList<Integer> list = new LinkedList<>(Arrays.asList(1, 2, 3));
+        ArrayList<Integer> a = new ArrayList<>(Arrays.asList(1,2,7,5,9,4));
+        findDiffrence(a);
 
-        System.out.println(sumOfLinkedList(list));
     }
 }
+
+

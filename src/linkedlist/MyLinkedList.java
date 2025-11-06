@@ -9,13 +9,13 @@ public class MyLinkedList {
         size = 0;
     }
 
-    void add(int... val) {
+    public void add(int... val) {
         for (int i = 0; i < val.length; i++) {
             add(val[i]);
         }
     }
 
-    void add(int val) {
+    public void add(int val) {
         Node newNode = new Node(val);
         if (head == null) {
             head = newNode;
@@ -27,7 +27,7 @@ public class MyLinkedList {
         size++;
     }
 
-    void add(int index, int val) {
+    public void add(int index, int val) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
@@ -47,7 +47,7 @@ public class MyLinkedList {
         }
     }
 
-    void addFirst(int val) {
+    public void addFirst(int val) {
         Node newNode = new Node(val);
         if (head == null) {
             head = newNode;
@@ -59,7 +59,7 @@ public class MyLinkedList {
         size++;
     }
 
-    int remove(int index) {
+    public int remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
@@ -79,7 +79,7 @@ public class MyLinkedList {
         return oldValue;
     }
 
-    int removeFirst() {
+    public int removeFirst() {
         if (head == null) {
             throw new NullPointerException();
         }
@@ -92,7 +92,7 @@ public class MyLinkedList {
         return oldValue;
     }
 
-    int get(int index) {
+    public int get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
@@ -103,7 +103,7 @@ public class MyLinkedList {
         return temp.val;
     }
 
-    int indexOf(int val) {
+    public int indexOf(int val) {
         Node curr = head;
         for (int i = 0; i < size; i++) {
             if (curr.val == val) {
@@ -128,14 +128,14 @@ public class MyLinkedList {
         return head.val;
     }
 
-    int getLast() {
+    public int getLast() {
         if (tail == null) {
             throw new NullPointerException();
         }
         return tail.val;
     }
 
-    int size() {
+    public int size() {
         return size;
     }
 

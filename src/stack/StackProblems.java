@@ -91,17 +91,57 @@ public class StackProblems {
         return stack.isEmpty();
     }
 
-    public static void main(String[] args) {
+    static void sortStack(Stack<Integer> s) {
+        Stack<Integer> t = new Stack<>();
+        while (!s.isEmpty()) {
+            int temp = s.pop();
+            while (!t.isEmpty() && temp > t.peek()) {
+                s.push(t.pop());
+            }
+            t.push(temp);
+        }
+        while (!t.isEmpty()) {
+            s.push(t.pop());
+        }
+    }
+
+    static boolean isPalindrome(Stack<Integer> s) {
+        Stack<Integer> b = new Stack<>();
+        int size = s.size();
+        for (int i = 0; i < size / 2; i++) {
+            b.push(s.pop());
+        }
+        if (size % 2 == 1) {
+            s.pop();
+        }
+        while (!s.isEmpty()) {
+            if (b.pop() != s.pop()) return false;
+        }
+        return true;
+    }
+
+    static void nextGreaterElement(int arr[]) {
         Stack<Integer> s = new Stack<>();
+        int[] nge = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            while (!s.isEmpty() && arr[i] > arr[s.peek()]) {
+                int index = s.pop();
+                nge[index] = arr[i];
+            }
+            s.push(i);
+        }
+        while (!s.isEmpty()) {
+            nge[s.pop()] = -1;
+        }
 
-        s.push(10);
-        s.push(20);
-        s.push(30);
-        s.push(40);
-        s.push(50);
+        for(int val : nge){
+            System.out.print(val+" ");
+        }
+    }
 
-        addBottom(s, -5);
-        System.out.println(s);
+    public static void main(String[] args) {
+        int arr[] = {4,5,2,25};
+        nextGreaterElement(arr);
 
     }
 }
