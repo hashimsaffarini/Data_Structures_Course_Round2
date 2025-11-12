@@ -143,5 +143,8 @@ public class StackProblems {
         int arr[] = {4,5,2,25};
         nextGreaterElement(arr);
 
+        double x = 5;
+        System.out.println(x/2);
+
     }
 }
