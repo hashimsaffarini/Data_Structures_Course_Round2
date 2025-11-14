@@ -53,7 +53,45 @@ public class QueueProblems {
         }
     }
 
+    public static void swapEveryTwoElements(Queue<Integer> q) {
+        int size = q.size();
+        for (int i = 0; i < size / 2; i++) {
+            int x = q.poll();
+            int y = q.poll();
+            q.offer(y);
+            q.offer(x);
+        }
+        if (size % 2 == 1) {
+            q.offer(q.poll());
+        }
+    }
+
+    public static void reverseFirstHalf(Queue<Integer> q) {
+        Stack<Integer> s = new Stack<>();
+        int size = q.size();
+        for (int i = 0; i < size / 2; i++) {
+            s.push(q.poll());
+        }
+        while (!s.isEmpty()) {
+            q.offer(s.pop());
+        }
+
+        for (int i = 0; i < size / 2; i++) {
+            q.offer(q.poll());
+        }
+    }
+
+
     public static void main(String[] args) {
-        System.out.println(minValueFrom90(8));
+        Queue<Integer> q = new LinkedList<>();
+        q.add(1);
+        q.add(2);
+        q.add(3);
+        q.add(4);
+        q.add(5);
+        q.add(6);
+
+        reverseFirstHalf(q);
+        System.out.println(q);
     }
 }
