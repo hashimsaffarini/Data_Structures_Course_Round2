@@ -14,7 +14,7 @@ Whether you’re just beginning your path or looking for a clean restart, this r
 - 🧱 Stack – LIFO behavior with use cases
 - 📬 Queue – FIFO, circular queues, and variations
 - 🧮 Recursion – single, double, and backtracking
-- 🗃️ HashMap & HashSet – hashing fundamentals
+- 🗃️ HashMap & HashSet – map fundamentals
 - 🌲 Trees – binary trees, traversals, and BSTs
 - 🕸️ Graphs – adjacency list, BFS, DFS, and basic pathfinding
 - 🧩 Problem Solving – multiple coding problems for each structure

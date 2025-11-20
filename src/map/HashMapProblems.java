@@ -1,6 +1,9 @@
-package hashing;
+package map;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class HashMapProblems {
 
@@ -49,8 +52,37 @@ public class HashMapProblems {
         return maxCharacter;
     }
 
+    static int[] twoSum(int[] arr, int target) {
+        HashMap<Integer, Integer> mp = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            int need = target - arr[i];
+            if (mp.containsKey(need)) {
+                return new int[]{mp.get(need), i};
+            }
+            mp.put(arr[i], i);
+        }
+        return new int[]{-1, -1};
+    }
+
+    static List<List<String>> groupAnagrams(String[] arr) {
+        HashMap<String, List<String>> mp = new HashMap<>();
+
+        for (String val : arr) {
+            char[] ch = val.toCharArray(); // eat
+            Arrays.sort(ch); //a t e
+            String sortedString = new String(ch); //ate
+            if (!mp.containsKey(sortedString)) {
+                mp.put(sortedString, new ArrayList<>());
+            }
+            mp.get(sortedString).add(val);
+        }
+        return new ArrayList<>(mp.values());
+    }
+
     public static void main(String[] args) {
         System.out.println(findMaxRepeatCharacter("abaabcccda"));
         // frequencyArray(new int[]{1, 2, 3, 2, 1, 2, 2, 2, 1});
+        String arr[] = {"eat", "tea", "tan", "ate", "nat", "bat"};
+        System.out.println(groupAnagrams(arr));
     }
 }
