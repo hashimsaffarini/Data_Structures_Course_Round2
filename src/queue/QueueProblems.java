@@ -81,6 +81,42 @@ public class QueueProblems {
         }
     }
 
+    static void swapMinMax(Queue<Integer> q) {
+        int size = q.size();
+        int max = q.peek(), min = q.peek();
+        for (int i = 0; i < size; i++) {
+            int val = q.poll();
+            if (val > max) max = val;
+            if (val < min) min = val;
+            q.offer(val);
+        }
+
+        for (int i = 0; i < size; i++) {
+            int val = q.poll();
+            if (val == min) {
+                q.offer(max);
+            } else if (val == max) {
+                q.offer(min);
+            } else {
+                q.offer(val);
+            }
+        }
+    }
+
+    static void reverseK(Queue<Integer> q, int k) {
+        Stack<Integer> s = new Stack<>();
+        for (int i = 0; i < k; i++) {
+            s.push(q.remove());
+        }
+        while (!s.isEmpty()) {
+            q.offer(s.pop());
+        }
+        int size = q.size();
+        for (int i = 0; i < size - k; i++) {
+            q.offer(q.poll());
+        }
+    }
+
 
     public static void main(String[] args) {
         Queue<Integer> q = new LinkedList<>();

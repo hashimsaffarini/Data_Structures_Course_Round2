@@ -205,11 +205,57 @@ public class LinkedListProblems {
         return head;
     }
 
+    static Node[] findMaxMin(Node head) {
+        Node min = head;
+        Node max = head;
+        Node curr = head;
+        while (curr != null) {
+            if (curr.val > max.val) {
+                max = curr;
+            }
+            if (curr.val < min.val) {
+                min = curr;
+            }
+            curr = curr.next;
+        }
+        return new Node[]{min, max};
+    }
+
+    static int findJoinPoint(Node a, Node b) {
+        if (a == null || b == null) return 1000;
+        Node p1 = a;
+        Node p2 = b;
+        while (p1 != p2) {
+            p1 = (p1 == null) ? b : p1.next;
+            p2 = (p2 == null) ? a : p2.next;
+        }
+        return (p1 == null) ? 1000 : p1.val;
+    }
+
+    static Node swapPairs(Node head) {
+        if (head == null || head.next == null) return head;
+        Node newHead = head.next;
+        Node prev = null;
+        Node curr = head;
+        while (curr != null && curr.next != null) {
+            Node next = curr.next;
+            curr.next = next.next;
+            next.next = curr;
+            if (prev != null) {
+                prev.next = next;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+        return newHead;
+    }
 
     public static void main(String[] args) {
         MyLinkedList list = new MyLinkedList();
-        list.add(1, 2, 3,4);
-        reverse(list.head);
-        System.out.println(list);
+        list.add(2, 3, 1, 10);
+        System.out.println(findMaxMin(list.head)[0].val);
+        System.out.println(findMaxMin(list.head)[1].val);
     }
 }
+
+
