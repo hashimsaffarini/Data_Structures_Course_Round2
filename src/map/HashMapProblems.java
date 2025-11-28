@@ -1,9 +1,6 @@
 package map;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class HashMapProblems {
 
@@ -77,6 +74,33 @@ public class HashMapProblems {
             mp.get(sortedString).add(val);
         }
         return new ArrayList<>(mp.values());
+    }
+
+    static List<Integer> getRepeatedSorted(int[] arr) {
+        HashMap<Integer, Integer> freq = new HashMap<>();
+        for (int x : arr) {
+            freq.put(x, freq.getOrDefault(x, 0) + 1);
+        }
+        HashSet<Integer> used = new HashSet<>();
+        List<Integer> res = new ArrayList<>();
+        for (int x : arr) {
+            if (freq.get(x) > 1 && !used.contains(x)) {
+                used.add(x);
+                res.add(x);
+            }
+        }
+        for (int i = 0; i < res.size() - 1; i++) {
+            for (int j = 0; j < res.size() - 1 - i; j++) {
+                int a = res.get(j);
+                int b = res.get(j + 1);
+                if (freq.get(a) < freq.get(b)) {
+                    int temp = res.get(j);
+                    res.set(j, res.get(j + 1));
+                    res.set(j + 1, temp);
+                }
+            }
+        }
+        return res;
     }
 
     public static void main(String[] args) {

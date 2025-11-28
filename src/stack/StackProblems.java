@@ -134,17 +134,33 @@ public class StackProblems {
             nge[s.pop()] = -1;
         }
 
-        for(int val : nge){
-            System.out.print(val+" ");
+        for (int val : nge) {
+            System.out.print(val + " ");
         }
     }
 
+    static String removeAdj(String s) {
+        Stack<Character> st = new Stack<>();
+        for (char ch : s.toCharArray()) {
+            if (!st.isEmpty() && st.peek() == ch) {
+                st.pop();
+            } else {
+                st.push(ch);
+            }
+        }
+        String res = "";
+        while (!st.isEmpty()) {
+            res += st.pop();
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
-        int arr[] = {4,5,2,25};
+        int arr[] = {4, 5, 2, 25};
         nextGreaterElement(arr);
 
         double x = 5;
-        System.out.println(x/2);
+        System.out.println(x / 2);
 
     }
 }

@@ -3,6 +3,8 @@ package linkedlist;
 import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LinkedListProblems {
 
@@ -248,6 +250,40 @@ public class LinkedListProblems {
             curr = curr.next;
         }
         return newHead;
+    }
+
+    static Node removeDuplicates2(Node head) {
+        if (head == null) return head;
+        Set<Integer> set = new HashSet<>();
+        Node curr = head, prev = null;
+        while (curr != null) {
+            if (set.contains(curr.val)) {
+                prev.next = curr.next;
+            } else {
+                set.add(curr.val);
+                prev = curr;
+            }
+            curr = curr.next;
+        }
+        return head;
+    }
+
+    static Node intersection(Node a, Node b) {
+        Set<Integer> set = new HashSet<>();
+        Node dummy = new Node(0);
+        Node tail = dummy;
+        while (a != null) {
+            set.add(a.val);
+            a = a.next;
+        }
+        while (b != null) {
+            if (set.contains(b.val)) {
+                tail.next = new Node(b.val);
+                tail = tail.next;
+            }
+            b = b.next;
+        }
+        return dummy.next;
     }
 
     public static void main(String[] args) {
