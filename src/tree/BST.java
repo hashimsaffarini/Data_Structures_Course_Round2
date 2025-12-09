@@ -1,9 +1,6 @@
 package tree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class BST {
     class Node {
@@ -190,6 +187,66 @@ public class BST {
         s = print(root.right, s);
         return s;
     }
+
+    boolean isFull(Node root) {
+        if (root == null) return true;
+        if (isLeaf(root)) return true;
+        if (root.left != null && root.right != null) {
+            return isFull(root.left) && isFull(root.right);
+        }
+        return false; //One Child
+    }
+
+    boolean isComplete(Node root, int index, int count) {
+        if (root == null) return true;
+        if (index >= count) return false;
+        return isComplete(root.left, index * 2 + 1, count) && isComplete(root.right, index * 2 + 2, count);
+    }
+
+    boolean isComplete() {
+        return isComplete(root, 0, count());
+    }
+
+    boolean isPerfect(Node root, int depth, int level) {
+        if (root == null) return true;
+        if (isLeaf(root)) {
+            return depth == level;
+        }
+        if (root.left == null || root.right == null) {
+            return false;
+        }
+        return isPerfect(root.left, depth, level + 1) && isPerfect(root.right, depth, level + 1);
+    }
+
+    boolean isPerfect() {
+        return isPerfect(root, depth(root), 1);
+    }
+
+    int depth(Node root) {
+        int c = 0;
+        for (Node curr = root; curr != null; curr = curr.left) {
+            c++;
+        }
+        return c;
+    }
+
+    boolean detectDup(Node root, Set<Integer> set) {
+        if (root == null) return false;
+        if (set.contains(root.val)) return true;
+        set.add(root.val);
+        return detectDup(root.left, set) || detectDup(root.right, set);
+    }
+
+    boolean detectDup() {
+        return detectDup(root, new HashSet<>());
+    }
+
+    boolean isSubtree(Node root, Node subRoot) {
+        if (root == null) return false;
+        if (isSameTree(root, subRoot)) return true;
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
 
     String print() {
         return print(root, "");
