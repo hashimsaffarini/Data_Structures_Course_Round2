@@ -247,6 +247,25 @@ public class BST {
         return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
 
+    int c = 0;
+    Node res = null;
+
+    int kthSmallest(Node root, int k) {
+        kthSmallestHelper(root, k);
+        return res.val;
+    }
+
+    void kthSmallestHelper(Node root, int k) {
+        if (root == null) return;
+        kthSmallestHelper(root.left, k);
+        c++;
+        if (c == k) {
+            res = root;
+            return;
+        }
+        kthSmallestHelper(root.right, k);
+    }
+
 
     String print() {
         return print(root, "");
