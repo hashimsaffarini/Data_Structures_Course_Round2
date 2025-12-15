@@ -29,7 +29,6 @@ public class QueueRecursion {
         q.add(40);
         q.add(50);
         q.add(60);
-        printQueue2(q);
         System.out.println(q);
     }
 }
