@@ -154,7 +154,6 @@ public class StackProblems {
         }
         return res;
     }
-
     public static void main(String[] args) {
         int arr[] = {4, 5, 2, 25};
         nextGreaterElement(arr);

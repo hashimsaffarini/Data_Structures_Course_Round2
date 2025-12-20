@@ -31,6 +31,34 @@ public class BST {
         root = add(root, val);
     }
 
+    Node delete(Node root, int key) {
+        if (root == null) return null;
+        if (key < root.val) {
+            root.left = delete(root.left, key);
+        } else if (key > root.val) {
+            root.right = delete(root.right, key);
+        } else {
+            if (root.left == null) {
+                return root.right;
+            }
+            if (root.right == null) {
+                return root.left;
+            }
+            Node min = findMin(root.right);
+            root.val = min.val;
+            root.right = delete(root.right, min.val);
+        }
+        return root;
+    }
+
+    Node findMin(Node root) {
+        Node curr = root;
+        while (curr.left != null) {
+            curr = curr.left;
+        }
+        return curr;
+    }
+
     int count(Node root) {
         if (root == null) {
             return 0;
@@ -266,6 +294,74 @@ public class BST {
         kthSmallestHelper(root.right, k);
     }
 
+    int maxDepth(Node root) {
+        if (root == null) return 0;
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    }
+
+    Node lca(Node root, int a, int b) {
+        if (root == null) return null;
+        if (a < root.val && b < root.val) {
+            return lca(root.left, a, b);
+        }
+        if (a > root.val && b > root.val) {
+            return lca(root.right, a, b);
+        }
+        return root;
+    }
+
+    void levelSum(Node root) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        setupSum(root, 0, mp);
+        for (int level : mp.keySet()) {
+            System.out.println("Level " + level + " : " + mp.get(level));
+        }
+    }
+
+    void setupSum(Node root, int level, Map<Integer, Integer> mp) {
+        if (root == null) return;
+        mp.put(level, mp.getOrDefault(level, 0) + root.val);
+        setupSum(root.left, level + 1, mp);
+        setupSum(root.right, level + 1, mp);
+    }
+
+    boolean sameValues(Node a, Node b) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        fill(a, mp);
+        remove(b, mp);
+        for (int v : mp.values()) {
+            if (v != 0) return false;
+        }
+        return true;
+    }
+
+    void fill(Node root, Map<Integer, Integer> mp) {
+        if (root == null) return;
+        mp.put(root.val, mp.getOrDefault(root.val, 0) + 1);
+        fill(root.left, mp);
+        fill(root.right, mp);
+    }
+
+    void remove(Node root, Map<Integer, Integer> mp) {
+        if (root == null) return;
+        mp.put(root.val, mp.getOrDefault(root.val, 0) - 1);
+        remove(root.left, mp);
+        remove(root.right, mp);
+    }
+
+    boolean pairSum(Node root, int x) {
+        Set<Integer> set = new HashSet<>();
+        return find(root, x, set);
+    }
+
+    boolean find(Node root, int x, Set<Integer> set) {
+        if (root == null) return false;
+        if (set.contains(x - root.val)) {
+            return true;
+        }
+        set.add(root.val);
+        return find(root.left, x, set) || find(root.right, x, set);
+    }
 
     String print() {
         return print(root, "");

@@ -103,10 +103,103 @@ public class HashMapProblems {
         return res;
     }
 
+    static int minRepeatingIndex(int[] arr) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        int minIndex = Integer.MAX_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            if (mp.containsKey(arr[i])) {
+                minIndex = Math.min(minIndex, mp.get(arr[i]));
+            } else {
+                mp.put(arr[i], i);
+            }
+        }
+        return minIndex == Integer.MAX_VALUE ? -1 : minIndex;
+    }
+
+    static int majElements(int[] arr) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        int n = arr.length;
+        for (int x : arr) {
+            mp.put(x, mp.getOrDefault(x, 0) + 1);
+            if (mp.get(x) > n / 2) {
+                return x;
+            }
+        }
+        return -1;
+    }
+
+    void symmetricPairs(int[][] pairs) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        for (int[] p : pairs) { // [3,4]
+            if (mp.containsKey(p[1]) && mp.get(p[1]) == p[0]) {
+                System.out.println(p[1] + " : " + p[0]);
+            }
+            mp.put(p[0], p[1]);
+        }
+    }
+
+    static void subarraySum(int[] arr, int target) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        int sum = 0;
+        mp.put(0, -1);
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            if (mp.containsKey(sum - target)) {
+                System.out.println("From Index " + (mp.get(sum - target) + 1) + "To Index " + i);
+            }
+            mp.put(sum, i);
+        }
+    }
+
+    void countDistinct(int arr[], int k) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        for (int i = 0; i < k; i++) {
+            int x = arr[i];
+            mp.put(x, mp.getOrDefault(x, 0) + 1);
+        }
+        System.out.print(mp.size() + " ");
+        for (int i = k; i < arr.length; i++) {
+            int out = arr[i - k];
+            mp.put(out, mp.get(out) - 1);
+            if (mp.get(out) == 0) {
+                mp.remove(out);
+            }
+            int in = arr[i];
+            mp.put(in, mp.getOrDefault(in, 0) + 1);
+            System.out.print(mp.size() + " ");
+        }
+    }
+
+    static Integer[] sortByFreqAndIndex(int arr[]) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        Map<Integer, Integer> firstIndex = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            freq.put(arr[i], freq.getOrDefault(arr[i], 0) + 1);
+            if (!firstIndex.containsKey(arr[i])) {
+                firstIndex.put(arr[i], i);
+            }
+        }
+
+        Integer[] temp = new Integer[arr.length];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = arr[i];
+        }
+        for (int i = 0; i < temp.length - 1; i++) {
+            for (int j = i + 1; j < temp.length; j++) {//selection sort
+                int fi = freq.get(temp[i]);
+                int fj = freq.get(temp[j]);
+                if (fi < fj || (fi == fj && firstIndex.get(temp[i]) > firstIndex.get(temp[j]))) {
+                    int swap = temp[i];
+                    temp[i] = temp[j];
+                    temp[j] = swap;
+                }
+            }
+        }
+        return temp;
+    }
+
     public static void main(String[] args) {
-        System.out.println(findMaxRepeatCharacter("abaabcccda"));
-        // frequencyArray(new int[]{1, 2, 3, 2, 1, 2, 2, 2, 1});
-        String arr[] = {"eat", "tea", "tan", "ate", "nat", "bat"};
-        System.out.println(groupAnagrams(arr));
+        int arr[] = {1, 8, 8, 1, 1, 8, 6, 7};
+        System.out.println(Arrays.toString(sortByFreqAndIndex(arr)));
     }
 }
