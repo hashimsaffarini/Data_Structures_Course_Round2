@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 
 public class HeapSort {
-
     public static void swap(int[] arr, int i, int max) {
         int temp = arr[i];
         arr[i] = arr[max];
