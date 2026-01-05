@@ -354,6 +354,37 @@ public class BST {
         return find(root, x, set);
     }
 
+    boolean isMaxOrMinHeap(Node root) {
+        return isMaxHeap(root) || isMinHeap(root);
+    }
+
+    public static boolean isMaxHeap(Node root) {
+        if (root == null)
+            return true;
+
+        if (root.left != null && root.val < root.left.val)
+            return false;
+
+        if (root.right != null && root.val < root.right.val)
+            return false;
+
+        return isMaxHeap(root.left) && isMaxHeap(root.right);
+    }
+
+    public static boolean isMinHeap(Node root) {
+        if (root == null)
+            return true;
+
+        if (root.left != null && root.val > root.left.val)
+            return false;
+
+        if (root.right != null && root.val > root.right.val)
+            return false;
+
+        return isMinHeap(root.left) && isMinHeap(root.right);
+    }
+
+
     boolean find(Node root, int x, Set<Integer> set) {
         if (root == null) return false;
         if (set.contains(x - root.val)) {
