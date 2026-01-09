@@ -2,19 +2,21 @@ package sorting;
 
 import java.util.Arrays;
 
-
 public class QuickSort {
 
     public static void quickSort(int[] arr, int low, int high) {
         if (low < high) {
 
             int pivotIndex = partition(arr, low, high);
+
             quickSort(arr, low, pivotIndex - 1);
             quickSort(arr, pivotIndex + 1, high);
         }
     }
 
+    // Lomuto Partition
     public static int partition(int[] arr, int low, int high) {
+
         int pivot = arr[high];
         int i = low - 1;
 
@@ -26,7 +28,6 @@ public class QuickSort {
         }
 
         swap(arr, i + 1, high);
-        System.out.println(Arrays.toString(arr));
 
         return i + 1;
     }
@@ -38,8 +39,10 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        int arr[] = {10, 2, 8, 1, 9, 3, 4, 5};
+        int[] arr = {10, 2, 8, 1, 9, 3, 4, 5};
+
         quickSort(arr, 0, arr.length - 1);
+
         System.out.println(Arrays.toString(arr));
     }
 }
